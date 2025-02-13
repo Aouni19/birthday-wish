@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Happy Birthday!</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(45deg, #ff6a95, #ff9a8b);
+      color: #fff;
+      text-align: center;
+      padding-top: 60px;
+    }
+    h1 {
+      font-size: 3em;
+      margin-bottom: 10px;
+    }
+    p {
+      font-size: 1.5em;
+    }
+    button {
+      font-size: 1.2em;
+      padding: 10px 25px;
+      margin: 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    #yesButton {
+      background-color: #28a745;
+    }
+    #noButton {
+      background-color: #dc3545;
+    }
+  </style>
+</head>
+<body>
+  <h1>Happy Birthday!</h1>
+  <p>Are you happy?</p>
+  <button id="yesButton">Yes</button>
+  <button id="noButton">No</button>
+  
+  <script>
+    let noClicks = 0;
+    const yesButton = document.getElementById('yesButton');
+    const noButton = document.getElementById('noButton');
+    
+    // Redirect to blog page when Yes is clicked
+    yesButton.addEventListener('click', function() {
+      window.location.href = 'blog.html';
+    });
+    
+    // When No is clicked, make the Yes button bigger and eventually force Yes
+    noButton.addEventListener('click', function() {
+      noClicks++;
+      // Increase size of Yes button by scaling it up each time
+      yesButton.style.transform = `scale(${1 + noClicks * 0.2})`;
+      
+      if (noClicks >= 3) {
+        // Change No button to Yes after three clicks
+        noButton.textContent = 'Yes';
+        noButton.style.backgroundColor = '#28a745';
+        // Remove previous event listener to avoid duplicate triggers
+        noButton.replaceWith(noButton.cloneNode(true));
+        const newNoButton = document.getElementById('noButton');
+        newNoButton.addEventListener('click', function() {
+          window.location.href = 'blog.html';
+        });
+      }
+    });
+  </script>
+</body>
+</html>
